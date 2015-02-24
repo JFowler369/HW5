@@ -1,5 +1,10 @@
 public class Stormtrooper extends Soldier {
 
+    public Stormtrooper(double health, double attack,
+            double defense, String identifier) {
+        super(health, attack, defense, identifier)
+    }
+
     @override
     public String getName() {
         return "Stormtrooper " + this.getIdentifier();
