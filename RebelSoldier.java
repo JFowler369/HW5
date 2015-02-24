@@ -11,7 +11,7 @@ public class RebelSoldier extends Soldier {
     }
 
     public double attack(Soldier target) {
-        if (math.random(100) >= 20) {
+        if (math.random() >= 0.20) {
             target.hurt(this.getAttack())
         }
     }

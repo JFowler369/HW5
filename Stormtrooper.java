@@ -11,7 +11,7 @@ public class Stormtrooper extends Soldier {
     }
 
     public double attack(Soldier target) {
-        if (math.random(100) >= 40) {
+        if (Math.random() >= 0.40) {
             target.hurt(this.getAttack() * 1.25)
         }
     }
