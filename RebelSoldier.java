@@ -1,4 +1,4 @@
-public class RebelSoldier extends Soldier {
+abstract class RebelSoldier extends Soldier {
 
     public RebelSoldier(double health, double attack,
             double defense, String identifier) {
@@ -10,11 +10,12 @@ public class RebelSoldier extends Soldier {
         return "Rebel Soldier " + this.getIdentifier();
     }
 
-    @Override
-    public void attack(Soldier target) {
+    public double attack(Soldier target) {
         if (Math.random() >= 0.20) {
             target.hurt(this.getAttack());
+            return this.getAttack();
         }
+        return 0.0;
     }
 
 }

@@ -1,4 +1,4 @@
-public class Stormtrooper extends Soldier {
+abstract class Stormtrooper extends Soldier {
 
     public Stormtrooper(double health, double attack,
             double defense, String identifier) {
@@ -10,10 +10,12 @@ public class Stormtrooper extends Soldier {
         return "Stormtrooper " + this.getIdentifier();
     }
 
-    public void attack(Soldier target) {
+    public double attack(Soldier target) {
         if (Math.random() >= 0.40) {
             target.hurt(this.getAttack() * 1.25);
+            return this.getAttack() * 1.25;
         }
+        return 0.0;
     }
 
 }
