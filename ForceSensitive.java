@@ -1,5 +1,5 @@
-public abstract interface ForceSensitive {
+public interface ForceSensitive {
 
-    public abstract void useTheForce();
+    void useTheForce();
 
 }

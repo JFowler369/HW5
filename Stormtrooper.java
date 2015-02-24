@@ -1,4 +1,4 @@
-abstract class Stormtrooper extends Soldier {
+public class Stormtrooper extends Soldier {
 
     public Stormtrooper(double health, double attack,
             double defense, String identifier) {

@@ -1,4 +1,4 @@
-public abstract class Sith extends Soldier implements ForceSensitive {
+public class Sith extends Soldier implements ForceSensitive {
 
     private double power;
     private boolean hasUsedForce = false;

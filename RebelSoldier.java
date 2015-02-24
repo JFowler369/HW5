@@ -1,4 +1,4 @@
-abstract class RebelSoldier extends Soldier {
+public class RebelSoldier extends Soldier {
 
     public RebelSoldier(double health, double attack,
             double defense, String identifier) {

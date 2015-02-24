@@ -1,4 +1,4 @@
-public abstract class Jedi extends Soldier implements ForceSensitive {
+public class Jedi extends Soldier implements ForceSensitive {
 
     private double power;
     private boolean hasUsedForce = false;
