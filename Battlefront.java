@@ -1,5 +1,14 @@
+/**
+ * Represents Basic Sith for Battlefront simulation
+ * @author Jesse Fowler
+ * @version 1.0
+ */
 public class Battlefront {
 
+    /**
+      * Runs Simulation
+      * @param args No Argument
+      */
     public static void main(String[] args) {
 
         Rebel han = new Rebel(100, 100, 100, "Han Solo");
