@@ -48,9 +48,9 @@ public class Simulation {
      * @param numTroopers   The number of Stormtroopers to include.
      * @param numSith       The number of Sith to include.
      * @param customRebel   An 'average' custom RebelSoldier
-                            (a subclass of RebelSoldier)
+     *                      (a subclass of RebelSoldier)
      * @param customTrooper An 'average' custom Stormtrooper
-                            (a subclass of Stormtrooper)
+     *                      (a subclass of Stormtrooper)
      */
     public Simulation(int numRebels, int numJedi, int numTroopers, int numSith,
             RebelSoldier customRebel, Stormtrooper customTrooper) {
@@ -76,8 +76,9 @@ public class Simulation {
         soldiers.addAll(rebellion);
 
         forceSensitives = new ArrayList<ForceSensitive>(numJedi + numSith);
-        forceSensitives.addAll(jedi);
-        forceSensitives.addAll(sith);
+        soldiers.stream().filter(s -> s instanceof ForceSensitive)
+                .forEach(s -> forceSensitives.add((ForceSensitive) s));
+
     }
 
     /**
@@ -103,7 +104,7 @@ public class Simulation {
     public boolean simulateSkirmish(boolean verbose) {
         // ForceSensitives have a 50/50 chance to useTheForce.
         forceSensitives.stream().filter(s -> RANDOM.nextBoolean())
-                .forEach(ForceSensitive::useTheForce);
+                .forEach(s -> s.useTheForce());
 
         // Mix up who attacks when
         Collections.shuffle(soldiers);
@@ -266,16 +267,25 @@ public class Simulation {
                 return (RebelSoldier) ctor.newInstance(health, attack,
                         defense, name);
 
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
+            } catch (NoSuchMethodException | InstantiationException e) {
+                String className = customTrooper.getName();
+                System.err.println("Could not find the constructor " + className
+                        + "(double health, double attack, "
+                        + "double defense, String identifier)!");
+                System.err.println("MAKE SURE YOUR CONSTRUCTOR IN " + className
+                        + " TAKES THE SAME PARAMETERS AS SOLDIER!");
+                System.exit(1);
             } catch (NoSuchFieldException e) {
-                e.printStackTrace();
+                String className = customTrooper.getName();
+                System.err.println("Something went wrong! BE SURE " + className
+                        + " EXTENDS RebelSoldier DIRECTLY!");
+                System.exit(1);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
+                System.exit(1);
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
+                System.exit(1);
             }
 
         }
@@ -448,7 +458,8 @@ public class Simulation {
         List<Soldier> deceased = soldiers.stream().filter(Soldier::isDead)
                 .collect(Collectors.toList());
 
-        forceSensitives = forceSensitives.stream().filter(deceased::contains)
+        forceSensitives = forceSensitives.stream()
+                .filter(s -> !deceased.contains(s))
                 .collect(Collectors.toList());
 
         soldiers = soldiers.stream().filter(s -> !s.isDead())
